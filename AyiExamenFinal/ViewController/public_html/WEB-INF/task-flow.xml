@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="task-flow">
+    <default-activity>inicio</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__10">
+      <managed-bean-name>backing1</managed-bean-name>
+      <managed-bean-class>view.borrar</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="inicio">
+      <page>/inicio.jsff</page>
+    </view>
+    <view id="nuevo">
+      <page>/nuevo.jsff</page>
+    </view>
+    <view id="modificar">
+      <page>/modificar.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>inicio</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>nuevo</from-outcome>
+        <to-activity-id>nuevo</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>modificar</from-outcome>
+        <to-activity-id>modificar</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__5">
+        <from-outcome>volverInicio</from-outcome>
+        <to-activity-id>inicio</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>nuevo</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>volver</from-outcome>
+        <to-activity-id>inicio</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>modificar</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome>volver</from-outcome>
+        <to-activity-id>inicio</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

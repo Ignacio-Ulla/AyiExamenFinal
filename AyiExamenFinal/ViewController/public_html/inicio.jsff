@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1">
+    <f:facet name="top">
+      <af:panelGridLayout id="pgl2">
+        <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1">
+          <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1">
+            <af:button text="Modificar" id="b6" action="modificar"/>
+            <af:spacer width="20" height="10" id="s1"/>
+            <af:button text="Nuevo" id="b7" actionListener="#{bindings.CreateWithParams.execute}"
+                       disabled="#{!bindings.CreateWithParams.enabled}" action="nuevo"/>
+          </af:gridCell>
+        </af:gridRow>
+      </af:panelGridLayout>
+    </f:facet>
+    <f:facet name="center">
+      <af:panelSplitter id="ps1" splitterPosition="360">
+        <f:facet name="first">
+          <af:panelFormLayout id="pfl1">
+            <af:inputText value="#{bindings.Id.inputValue}" label="#{bindings.Id.hints.label}"
+                          required="#{bindings.Id.hints.mandatory}" readOnly="true"
+                          columns="#{bindings.Id.hints.displayWidth}" maximumLength="#{bindings.Id.hints.precision}"
+                          shortDesc="#{bindings.Id.hints.tooltip}" id="it1">
+              <f:validator binding="#{bindings.Id.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.Id.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.Nombre.inputValue}" label="#{bindings.Nombre.hints.label}"
+                          required="#{bindings.Nombre.hints.mandatory}" readOnly="true"
+                          columns="#{bindings.Nombre.hints.displayWidth}"
+                          maximumLength="#{bindings.Nombre.hints.precision}"
+                          shortDesc="#{bindings.Nombre.hints.tooltip}" id="it2">
+              <f:validator binding="#{bindings.Nombre.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.Duracion.inputValue}" label="#{bindings.Duracion.hints.label}"
+                          required="#{bindings.Duracion.hints.mandatory}" readOnly="true"
+                          columns="#{bindings.Duracion.hints.displayWidth}"
+                          maximumLength="#{bindings.Duracion.hints.precision}"
+                          shortDesc="#{bindings.Duracion.hints.tooltip}" id="it3">
+              <f:validator binding="#{bindings.Duracion.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.Duracion.format}"/>
+            </af:inputText>
+            <f:facet name="footer">
+              <af:panelGroupLayout layout="horizontal" id="pgl1">
+                <af:button actionListener="#{bindings.First.execute}" text="First" disabled="#{!bindings.First.enabled}"
+                           partialSubmit="true" id="b1"/>
+                <af:button actionListener="#{bindings.Previous.execute}" text="Previous"
+                           disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="b2"/>
+                <af:button actionListener="#{bindings.Next.execute}" text="Next" disabled="#{!bindings.Next.enabled}"
+                           partialSubmit="true" id="b3"/>
+                <af:button actionListener="#{bindings.Last.execute}" text="Last" disabled="#{!bindings.Last.enabled}"
+                           partialSubmit="true" id="b4"/>
+                <af:button text="Borrar" id="b5"
+                           disabled="#{!bindings.Delete.enabled}">
+                  <af:showPopupBehavior popupId="p1"/>
+                </af:button>
+                <af:button actionListener="#{bindings.Commit.execute}" text="Persistir"
+                           disabled="#{!bindings.Commit.enabled}" id="b9"/>
+              </af:panelGroupLayout>
+            </f:facet>
+            <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+              <af:dialog id="d1" type="none" title="Confirme que desea borrar el curso">
+                <f:facet name="buttonBar">
+                  <af:button text="Borrar" id="b8" actionListener="#{bindings.Delete.execute}"
+                             disabled="#{!bindings.Delete.enabled}" action="volverInicio"/>
+                </f:facet>
+              </af:dialog>
+            </af:popup>
+          </af:panelFormLayout>
+        </f:facet>
+        <f:facet name="second">
+          <af:table value="#{bindings.MateriasView2.collectionModel}" var="row"
+                    rows="#{bindings.MateriasView2.rangeSize}"
+                    emptyText="#{bindings.MateriasView2.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" selectedRowKeys="#{bindings.MateriasView2.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.MateriasView2.collectionModel.makeCurrent}" rowSelection="single"
+                    fetchSize="#{bindings.MateriasView2.rangeSize}"
+                    filterModel="#{bindings.MateriasView2Query.queryDescriptor}" filterVisible="true"
+                    queryListener="#{bindings.MateriasView2Query.processQuery}" varStatus="vs" id="t1">
+            <af:column sortProperty="#{bindings.MateriasView2.hints.Id.name}" filterable="true" sortable="true"
+                       headerText="#{bindings.MateriasView2.hints.Id.label}" id="c1">
+              <af:outputText value="#{row.Id}" shortDesc="#{bindings.MateriasView2.hints.Id.tooltip}" id="ot1">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.MateriasView2.hints.Id.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.MateriasView2.hints.Nombre.name}" filterable="true" sortable="true"
+                       headerText="#{bindings.MateriasView2.hints.Nombre.label}" id="c2">
+              <af:outputText value="#{row.Nombre}" shortDesc="#{bindings.MateriasView2.hints.Nombre.tooltip}" id="ot2"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.MateriasView2.hints.Duracion.name}" filterable="true" sortable="true"
+                       headerText="#{bindings.MateriasView2.hints.Duracion.label}" id="c3">
+              <af:outputText value="#{row.Duracion}" shortDesc="#{bindings.MateriasView2.hints.Duracion.tooltip}"
+                             id="ot3">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.MateriasView2.hints.Duracion.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.MateriasView2.hints.CursoId.name}" filterable="true" sortable="true"
+                       headerText="#{bindings.MateriasView2.hints.CursoId.label}" id="c4">
+              <af:selectOneChoice value="#{row.bindings.CursoId.inputValue}" label="#{row.bindings.CursoId.label}"
+                                  required="#{bindings.MateriasView2.hints.CursoId.mandatory}"
+                                  shortDesc="#{bindings.MateriasView2.hints.CursoId.tooltip}" readOnly="true" id="soc1">
+                <f:selectItems value="#{row.bindings.CursoId.items}" id="si1"/>
+                <f:validator binding="#{row.bindings.CursoId.validator}"/>
+              </af:selectOneChoice>
+            </af:column>
+          </af:table>
+        </f:facet>
+      </af:panelSplitter>
+    </f:facet>
+  </af:panelStretchLayout>
+</ui:composition>
